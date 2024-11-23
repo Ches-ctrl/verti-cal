@@ -7,7 +7,12 @@ export function VerticalCalendar() {
   const [events, setEvents] = useState<Record<string, string[]>>({});
   const [numberOfDays, setNumberOfDays] = useState(10);
 
-  const handleEventAdd = (date: Date, event: string) => {
+  const handleEventAdd = (date: Date, event: string, newEvents?: Record<string, string[]>) => {
+    if (newEvents) {
+      setEvents(newEvents);
+      return;
+    }
+    
     const dateStr = date.toISOString().split("T")[0];
     setEvents((prev) => ({
       ...prev,

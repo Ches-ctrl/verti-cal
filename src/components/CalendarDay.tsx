@@ -1,6 +1,6 @@
 import { format, getWeek, isMonday } from "date-fns";
 import { cn } from "@/lib/utils";
-import { Plus } from "lucide-react";
+import { Plus, X } from "lucide-react";
 import { Button } from "./ui/button";
 import { useState } from "react";
 import { Input } from "./ui/input";
@@ -14,6 +14,7 @@ interface CalendarDayProps {
 export function CalendarDay({ date, events, onEventAdd }: CalendarDayProps) {
   const [isAdding, setIsAdding] = useState(false);
   const [newEvent, setNewEvent] = useState("");
+  const [hoveredEventIndex, setHoveredEventIndex] = useState<number | null>(null);
   
   const dateStr = format(date, "yyyy-MM-dd");
   const isToday = format(new Date(), "yyyy-MM-dd") === dateStr;
@@ -30,13 +31,28 @@ export function CalendarDay({ date, events, onEventAdd }: CalendarDayProps) {
     }
   };
 
+  const handleDeleteEvent = (indexToDelete: number) => {
+    const updatedEvents = dayEvents.filter((_, index) => index !== indexToDelete);
+    const newEvents = { ...events };
+    if (updatedEvents.length === 0) {
+      delete newEvents[dateStr];
+    } else {
+      newEvents[dateStr] = updatedEvents;
+    }
+    // Since events is managed by the parent component, we need to update it there
+    // We'll reuse onEventAdd to update the entire day's events
+    onEventAdd(date, "", newEvents);
+  };
+
   return (
-    <div className={cn(
-      "py-4",
-      isToday && "bg-white/5 rounded-lg"
-    )}>
+    <div className="py-4 px-1">
       <div className="flex flex-col space-y-2">
-        <div className="flex flex-col items-start">
+        <div 
+          className={cn(
+            "flex flex-col items-start p-3 rounded-xl",
+            isToday && "bg-purple-500/10"
+          )}
+        >
           {showWeekNumber && (
             <span className="text-xs text-gray-400 mb-1">Week {weekNumber}</span>
           )}
@@ -53,9 +69,21 @@ export function CalendarDay({ date, events, onEventAdd }: CalendarDayProps) {
           {dayEvents.length > 0 && dayEvents.map((event, index) => (
             <div
               key={index}
-              className="p-2 text-sm text-left"
+              className="p-2 text-sm text-left relative group"
+              onMouseEnter={() => setHoveredEventIndex(index)}
+              onMouseLeave={() => setHoveredEventIndex(null)}
             >
               {event}
+              {hoveredEventIndex === index && (
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="absolute right-0 top-1/2 -translate-y-1/2 h-6 w-6 opacity-0 group-hover:opacity-100 transition-opacity"
+                  onClick={() => handleDeleteEvent(index)}
+                >
+                  <X className="h-4 w-4" />
+                </Button>
+              )}
             </div>
           ))}
           {isAdding && (
