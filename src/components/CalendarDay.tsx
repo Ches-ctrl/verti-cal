@@ -8,7 +8,7 @@ import { Input } from "./ui/input";
 interface CalendarDayProps {
   date: Date;
   events: Record<string, string[]>;
-  onEventAdd: (date: Date, event: string) => void;
+  onEventAdd: (date: Date, event: string, newEvents?: Record<string, string[]>) => void;
 }
 
 export function CalendarDay({ date, events, onEventAdd }: CalendarDayProps) {
