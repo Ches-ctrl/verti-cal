@@ -40,20 +40,10 @@ export function CalendarDay({ date, events, onEventAdd }: CalendarDayProps) {
           <div className="flex justify-between items-center w-full">
             <span className={cn(
               "text-lg font-semibold",
-              isToday && "text-primary"
+              isToday && "bg-white/5 px-2 py-1 rounded-md"
             )}>
               {format(date, "EEEE, MMMM d")}
             </span>
-            {!isAdding && (
-              <Button
-                variant="ghost"
-                size="icon"
-                className="h-8 w-8 rounded-full hover:bg-white/10"
-                onClick={() => setIsAdding(true)}
-              >
-                <Plus className="h-4 w-4" />
-              </Button>
-            )}
           </div>
         </div>
       </div>
@@ -74,9 +64,21 @@ export function CalendarDay({ date, events, onEventAdd }: CalendarDayProps) {
               }}
             />
           </form>
-        ) : dayEvents.length > 0 && (
+        ) : (
           <div className="space-y-2">
-            {dayEvents.map((event, index) => (
+            <div className="flex justify-between items-center mb-2">
+              {!isAdding && (
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-8 w-8 rounded-full hover:bg-white/10 ml-auto"
+                  onClick={() => setIsAdding(true)}
+                >
+                  <Plus className="h-4 w-4" />
+                </Button>
+              )}
+            </div>
+            {dayEvents.length > 0 && dayEvents.map((event, index) => (
               <div
                 key={index}
                 className="p-2 rounded glass-morphism bg-opacity-20 text-sm text-left"
