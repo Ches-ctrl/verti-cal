@@ -31,17 +31,17 @@ export function CalendarDay({ date, events, onEventAdd }: CalendarDayProps) {
   };
 
   return (
-    <div className="py-4">
+    <div className={cn(
+      "py-4",
+      isToday && "bg-white/5 rounded-lg"
+    )}>
       <div className="flex flex-col space-y-2">
         <div className="flex flex-col items-start">
           {showWeekNumber && (
             <span className="text-xs text-gray-400 mb-1">Week {weekNumber}</span>
           )}
           <div className="flex justify-between items-center w-full">
-            <span className={cn(
-              "text-lg font-semibold",
-              isToday && "bg-white/5 px-2 py-1 rounded-md"
-            )}>
+            <span className="text-lg font-semibold">
               {format(date, "EEEE, MMMM d")}
             </span>
           </div>
@@ -49,45 +49,44 @@ export function CalendarDay({ date, events, onEventAdd }: CalendarDayProps) {
       </div>
       
       <div className="min-h-[40px] mt-2">
-        {isAdding ? (
-          <form onSubmit={handleAddEvent}>
-            <Input
-              value={newEvent}
-              onChange={(e) => setNewEvent(e.target.value)}
-              placeholder="Add event..."
-              className="glass-morphism"
-              autoFocus
-              onBlur={() => {
-                if (!newEvent.trim()) {
-                  setIsAdding(false);
-                }
-              }}
-            />
-          </form>
-        ) : (
-          <div className="space-y-2">
-            {dayEvents.length > 0 && dayEvents.map((event, index) => (
-              <div
-                key={index}
-                className="p-2 bg-white/5 text-sm text-left"
-              >
-                {event}
-              </div>
-            ))}
-            <div className="flex justify-end">
-              {!isAdding && (
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="h-8 w-8 rounded-full hover:bg-white/10"
-                  onClick={() => setIsAdding(true)}
-                >
-                  <Plus className="h-4 w-4" />
-                </Button>
-              )}
+        <div className="space-y-2">
+          {dayEvents.length > 0 && dayEvents.map((event, index) => (
+            <div
+              key={index}
+              className="p-2 text-sm text-left"
+            >
+              {event}
             </div>
+          ))}
+          {isAdding && (
+            <form onSubmit={handleAddEvent}>
+              <Input
+                value={newEvent}
+                onChange={(e) => setNewEvent(e.target.value)}
+                placeholder="Add event..."
+                className="glass-morphism"
+                autoFocus
+                onBlur={() => {
+                  if (!newEvent.trim()) {
+                    setIsAdding(false);
+                  }
+                }}
+              />
+            </form>
+          )}
+          <div className="flex justify-end">
+            {!isAdding && (
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-8 w-8 rounded-full hover:bg-white/10"
+                onClick={() => setIsAdding(true)}
+              >
+                <Plus className="h-4 w-4" />
+              </Button>
+            )}
           </div>
-        )}
+        </div>
       </div>
     </div>
   );
