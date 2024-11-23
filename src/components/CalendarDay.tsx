@@ -43,11 +43,11 @@ export function CalendarDay({ date, events, onEventAdd }: CalendarDayProps) {
   };
 
   return (
-    <div className="py-4 px-1">
-      <div className="flex flex-col space-y-2">
+    <div className="py-2 px-1">
+      <div className="flex flex-col">
         <div 
           className={cn(
-            "flex flex-col items-start py-1.5 px-3 rounded-xl",
+            "flex flex-col items-start py-1 px-3 rounded-xl",
             isToday && "bg-purple-500/10"
           )}
         >
@@ -62,8 +62,8 @@ export function CalendarDay({ date, events, onEventAdd }: CalendarDayProps) {
         </div>
       </div>
       
-      <div className="min-h-[40px] mt-2">
-        <div className="space-y-2">
+      <div className="min-h-[40px] mt-1">
+        <div className="space-y-1">
           {dayEvents.length > 0 && dayEvents.map((event, index) => (
             <div
               key={index}
@@ -90,7 +90,7 @@ export function CalendarDay({ date, events, onEventAdd }: CalendarDayProps) {
                 value={newEvent}
                 onChange={(e) => setNewEvent(e.target.value)}
                 placeholder="Add event..."
-                className="glass-morphism"
+                className="bg-transparent border-0 p-0 h-auto focus-visible:ring-0 focus-visible:ring-offset-0"
                 autoFocus
                 onBlur={() => {
                   if (!newEvent.trim()) {
