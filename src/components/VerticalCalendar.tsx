@@ -24,9 +24,9 @@ export function VerticalCalendar() {
   );
 
   return (
-    <div className="max-w-md mx-auto p-4 space-y-4">
+    <div className="max-w-md mx-auto p-4">
       <h1 className="text-2xl font-bold mb-6 text-center">Notes</h1>
-      <div className="space-y-4">
+      <div>
         {days.map((date) => (
           <CalendarDay
             key={date.toISOString()}
@@ -39,7 +39,7 @@ export function VerticalCalendar() {
       <Button
         onClick={handleAddWeek}
         variant="outline"
-        className="w-full glass-morphism"
+        className="w-full glass-morphism mt-4"
       >
         Add Week
       </Button>
