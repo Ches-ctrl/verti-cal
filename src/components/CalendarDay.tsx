@@ -48,7 +48,7 @@ export function CalendarDay({ date, events, onEventAdd }: CalendarDayProps) {
         <div 
           className={cn(
             "flex flex-col items-start py-1 px-3 rounded-xl",
-            isToday && "bg-purple-500/10"
+            isToday ? "bg-purple-500/10" : "bg-purple-100/5"
           )}
         >
           {showWeekNumber && (
@@ -62,7 +62,7 @@ export function CalendarDay({ date, events, onEventAdd }: CalendarDayProps) {
         </div>
       </div>
       
-      <div className="min-h-[40px] mt-1">
+      <div className="min-h-[40px] px-3">
         <div className="space-y-1">
           {dayEvents.length > 0 && dayEvents.map((event, index) => (
             <div
@@ -76,7 +76,7 @@ export function CalendarDay({ date, events, onEventAdd }: CalendarDayProps) {
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="absolute right-0 top-1/2 -translate-y-1/2 h-6 w-6 opacity-0 group-hover:opacity-100 transition-opacity"
+                  className="absolute right-0 top-1/2 -translate-y-1/2 h-6 w-6 opacity-0 group-hover:opacity-100 transition-opacity hover:bg-transparent"
                   onClick={() => handleDeleteEvent(index)}
                 >
                   <X className="h-4 w-4" />
@@ -105,7 +105,7 @@ export function CalendarDay({ date, events, onEventAdd }: CalendarDayProps) {
               <Button
                 variant="ghost"
                 size="icon"
-                className="h-8 w-8 rounded-full hover:bg-white/10"
+                className="h-8 w-8 rounded-full hover:bg-transparent"
                 onClick={() => setIsAdding(true)}
               >
                 <Plus className="h-4 w-4" />
