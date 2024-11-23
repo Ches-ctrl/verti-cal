@@ -39,7 +39,7 @@ export function VerticalCalendar() {
       <Button
         onClick={handleAddWeek}
         variant="outline"
-        className="w-full glass-morphism mt-4"
+        className="w-full glass-morphism mt-4 rounded-full"
       >
         Add Week
       </Button>
