@@ -47,8 +47,8 @@ export function CalendarDay({ date, events, onEventAdd }: CalendarDayProps) {
       <div className="flex flex-col">
         <div 
           className={cn(
-            "flex flex-col items-start py-1 px-3 rounded-xl",
-            isToday ? "bg-purple-500/10" : "bg-purple-100/5"
+            "flex flex-col items-start py-1 px-3 rounded-2xl",
+            isToday && "bg-purple-500/10"
           )}
         >
           {showWeekNumber && (
