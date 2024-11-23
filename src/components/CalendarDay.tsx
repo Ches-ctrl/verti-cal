@@ -39,8 +39,6 @@ export function CalendarDay({ date, events, onEventAdd }: CalendarDayProps) {
     } else {
       newEvents[dateStr] = updatedEvents;
     }
-    // Since events is managed by the parent component, we need to update it there
-    // We'll reuse onEventAdd to update the entire day's events
     onEventAdd(date, "", newEvents);
   };
 
@@ -49,12 +47,12 @@ export function CalendarDay({ date, events, onEventAdd }: CalendarDayProps) {
       <div className="flex flex-col space-y-2">
         <div 
           className={cn(
-            "flex flex-col items-start p-3 rounded-xl",
+            "flex flex-col items-start py-1.5 px-3 rounded-xl",
             isToday && "bg-purple-500/10"
           )}
         >
           {showWeekNumber && (
-            <span className="text-xs text-gray-400 mb-1">Week {weekNumber}</span>
+            <span className="text-xs text-gray-400">Week {weekNumber}</span>
           )}
           <div className="flex justify-between items-center w-full">
             <span className="text-lg font-semibold">
@@ -69,7 +67,7 @@ export function CalendarDay({ date, events, onEventAdd }: CalendarDayProps) {
           {dayEvents.length > 0 && dayEvents.map((event, index) => (
             <div
               key={index}
-              className="p-2 text-sm text-left relative group"
+              className="text-sm text-left relative group"
               onMouseEnter={() => setHoveredEventIndex(index)}
               onMouseLeave={() => setHoveredEventIndex(null)}
             >
