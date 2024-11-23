@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { addDays, startOfDay } from "date-fns";
 import { CalendarDay } from "./CalendarDay";
+import { Button } from "./ui/button";
 
 export function VerticalCalendar() {
   const [events, setEvents] = useState<Record<string, string[]>>({});
+  const [numberOfDays, setNumberOfDays] = useState(10);
 
   const handleEventAdd = (date: Date, event: string) => {
     const dateStr = date.toISOString().split("T")[0];
@@ -13,13 +15,17 @@ export function VerticalCalendar() {
     }));
   };
 
-  const days = Array.from({ length: 10 }, (_, i) =>
+  const handleAddWeek = () => {
+    setNumberOfDays((prev) => prev + 7);
+  };
+
+  const days = Array.from({ length: numberOfDays }, (_, i) =>
     startOfDay(addDays(new Date(), i))
   );
 
   return (
     <div className="max-w-md mx-auto p-4 space-y-4">
-      <h1 className="text-2xl font-bold mb-6 text-center">Calendar</h1>
+      <h1 className="text-2xl font-bold mb-6 text-center">Notes</h1>
       <div className="space-y-4">
         {days.map((date) => (
           <CalendarDay
@@ -30,6 +36,13 @@ export function VerticalCalendar() {
           />
         ))}
       </div>
+      <Button
+        onClick={handleAddWeek}
+        variant="outline"
+        className="w-full glass-morphism"
+      >
+        Add Week
+      </Button>
     </div>
   );
 }

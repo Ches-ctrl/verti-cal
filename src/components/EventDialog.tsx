@@ -13,9 +13,10 @@ import { useToast } from "@/components/ui/use-toast";
 interface EventDialogProps {
   date: Date;
   onEventAdd: (date: Date, event: string) => void;
+  children: React.ReactNode;
 }
 
-export function EventDialog({ date, onEventAdd }: EventDialogProps) {
+export function EventDialog({ date, onEventAdd, children }: EventDialogProps) {
   const [event, setEvent] = useState("");
   const [open, setOpen] = useState(false);
   const { toast } = useToast();
@@ -36,9 +37,7 @@ export function EventDialog({ date, onEventAdd }: EventDialogProps) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" className="w-full mt-2">
-          Add Event
-        </Button>
+        {children}
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px] glass-morphism">
         <DialogHeader>
