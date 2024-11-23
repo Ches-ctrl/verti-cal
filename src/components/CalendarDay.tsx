@@ -66,26 +66,26 @@ export function CalendarDay({ date, events, onEventAdd }: CalendarDayProps) {
           </form>
         ) : (
           <div className="space-y-2">
-            <div className="flex justify-between items-center mb-2">
+            {dayEvents.length > 0 && dayEvents.map((event, index) => (
+              <div
+                key={index}
+                className="p-2 bg-white/5 text-sm text-left"
+              >
+                {event}
+              </div>
+            ))}
+            <div className="flex justify-end">
               {!isAdding && (
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="h-8 w-8 rounded-full hover:bg-white/10 ml-auto"
+                  className="h-8 w-8 rounded-full hover:bg-white/10"
                   onClick={() => setIsAdding(true)}
                 >
                   <Plus className="h-4 w-4" />
                 </Button>
               )}
             </div>
-            {dayEvents.length > 0 && dayEvents.map((event, index) => (
-              <div
-                key={index}
-                className="p-2 rounded glass-morphism bg-opacity-20 text-sm text-left"
-              >
-                {event}
-              </div>
-            ))}
           </div>
         )}
       </div>
